@@ -1,0 +1,66 @@
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojResolveAssemblyReference.cache
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.Cache
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form2.resources
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojResolveAssemblyReference.cache
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.Cache
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojResolveAssemblyReference.cache
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\Ricardo Granja\Desktop\Universidad\Ricardo Granja Chávez\Proyecto de Archivos\EstructuraDeArchivos\Proyecto de Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.Cache
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\Mauricio\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+E:\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+E:\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\aalem\source\Videos\ProyectoArchivosgorda\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
