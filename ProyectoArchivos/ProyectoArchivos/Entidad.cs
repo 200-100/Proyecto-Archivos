@@ -27,6 +27,8 @@ namespace ProyectoArchivos
         //
         private List<List<IndiceSecundario>> fks = new List<List<IndiceSecundario>>();
         //
+        private List<HashEstatico> he = new List<HashEstatico>();
+        //
         private HashDinamico hs = new HashDinamico();
 
         //Constructor
@@ -86,6 +88,12 @@ namespace ProyectoArchivos
         {
             get { return fks; }
             set { fks = value; }
+        }
+        //
+        public List<HashEstatico> HE
+        {
+            get { return he; }
+            set { he = value; }
         }
         //
         public HashDinamico HS

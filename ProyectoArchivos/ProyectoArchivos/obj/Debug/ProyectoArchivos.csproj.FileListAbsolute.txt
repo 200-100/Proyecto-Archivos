@@ -64,3 +64,13 @@ C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchi
 C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
 C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
 C:\Users\aalem\Desktop\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csprojAssemblyReference.cache
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Form1.resources
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Properties.Resources.resources
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.GenerateResource.cache
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.exe
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.pdb
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
+C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb

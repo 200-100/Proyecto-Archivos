@@ -32,7 +32,7 @@ namespace ProyectoArchivos
             comboIndice.Items.Add("1");
             comboIndice.Items.Add("2");
             comboIndice.Items.Add("3");
-            comboIndice.Items.Add("6");
+            comboIndice.Items.Add("5");
             txtB_Busqueda.Enabled = false;
         }
 
@@ -407,8 +407,7 @@ namespace ProyectoArchivos
                         nuevoAtributo.TipoIndice = Convert.ToInt32(comboIndice.SelectedIndex);
                         break;
                     case 4:
-                    case 5:
-                        nuevoAtributo.TipoIndice = Convert.ToInt32(comboIndice.SelectedIndex + 2);
+                        nuevoAtributo.TipoIndice = Convert.ToInt32(comboIndice.SelectedIndex + 1);
                         break;
 
                 }
@@ -710,6 +709,31 @@ namespace ProyectoArchivos
                                 dtGrid_FK.Rows.Clear();
                                 break;
                             #endregion
+                            case 5:
+                                f = new FileInfo(nameFileIdx);
+                                tam = f.Length;
+                                at.DireccionIndice = tam;
+                                DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE = Archivo.InicializaHashEstatico(tam, nameFileIdx);
+                                foreach (HashEstatico hesb in DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE)
+                                {
+                                    f = new FileInfo(nameFileIdx);
+                                    tam = f.Length;
+                                    hesb.DirBloque = tam;
+                                    hesb.Sub_Bloque = Archivo.InicializaSub_BloqueInicializaHashEstatico(tam, at, hesb, nameFileIdx);
+                                }
+                                for (int h = 1; h <= 10; h++)
+                                {
+                                    comboCajon.Items.Add("L" + h.ToString());
+                                }
+                                comboHashEstatico.Items.Clear();
+                                foreach (Entidad en in DD.Entidades)
+                                {
+                                    comboHashEstatico.Items.Add(en.Nombre);
+                                }
+                                Archivo.EscribeAtributo(at, nomArchivo);
+                                dtGrid_Atributos.Rows.Clear();
+                                break;
+                            #region Hash Dinamico
                             case 6:
                                 #region Hash Dinamico
                                 f = new FileInfo(nameFileIdx);
@@ -734,6 +758,7 @@ namespace ProyectoArchivos
                                 txtB_IDHashDinamicoSub_Bloque.Text = "";
                                 break;
                                 #endregion
+                            #endregion
                         }
                     }
                     dtGrid_Registros.Rows.Clear();
@@ -2951,6 +2976,42 @@ namespace ProyectoArchivos
         private void dtGrid_Registros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             Console.WriteLine(dtGrid_Registros.CurrentCell.ColumnIndex);
+        }
+
+        private void comboHashEstatico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int pos = comboHashEstatico.SelectedIndex;
+
+            if (pos > -1)
+            {
+                dtGrid_HashEstatico.Rows.Clear();
+                comboCajon.Items.Clear();
+                foreach (HashEstatico heb in DD.Entidades[pos].HE)
+                {
+                    dtGrid_HashEstatico.Rows.Add(heb.DirBloque);
+                }
+                for (int h = 0; h < 10; h++)
+                {
+                    comboCajon.Items.Add("L" + h.ToString());
+                }
+                comboCajon.Text = "";
+                dtGrid_Cajon.Rows.Clear();
+            }
+        }
+
+        private void comboCajon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int pos = comboHashEstatico.SelectedIndex;
+            int pos1 = comboCajon.SelectedIndex;
+
+            if (pos > -1 && pos1 > -1)
+            {
+                dtGrid_Cajon.Rows.Clear();
+                foreach (HashEstatico_SubBloque hesb in DD.Entidades[pos].HE[pos1].Sub_Bloque)
+                {
+                    dtGrid_Cajon.Rows.Add(hesb.Informacion, hesb.DirInformacion);
+                }
+            }
         }
     }
 }

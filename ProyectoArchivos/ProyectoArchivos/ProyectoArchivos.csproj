@@ -61,6 +61,8 @@
     <Compile Include="HashDinamico_Bloque.cs" />
     <Compile Include="HashDinamico_SubBloque.cs" />
     <Compile Include="HashDinamico_SubBloqueInformacion.cs" />
+    <Compile Include="HashEstatico.cs" />
+    <Compile Include="HashEstatico_SubBloque.cs" />
     <Compile Include="IndicePrimario.cs" />
     <Compile Include="IndicePrimario_SubBloque.cs" />
     <Compile Include="IndiceSecundario.cs" />

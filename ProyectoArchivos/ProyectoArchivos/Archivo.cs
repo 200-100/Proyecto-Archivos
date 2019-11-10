@@ -1181,5 +1181,92 @@ namespace ProyectoArchivos
 
             return hssb;
         }
+
+        static public List<HashEstatico> InicializaHashEstatico(long dir, string nomIndice)
+        {
+            List<HashEstatico> hash = new List<HashEstatico>();
+            long dirCont = dir;
+
+            try
+            {
+                using (BinaryWriter w = new BinaryWriter(new FileStream(nomIndice, FileMode.Open)))
+                {
+                    w.Seek((int)dir, SeekOrigin.Begin);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        HashEstatico heb = new HashEstatico();
+
+                        heb.DirIndice = dirCont;
+                        heb.Sub_Bloque = null;
+                        heb.DirBloque = -1;
+                        heb.Desbordamiento = -1;
+
+                        w.Write(heb.DirBloque);
+
+                        hash.Add(heb);
+                        dirCont += 8;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en la inicialización del indice secundario:\n" + ex.Message);
+            }
+
+            return hash;
+        }
+        static public List<HashEstatico_SubBloque> InicializaSub_BloqueInicializaHashEstatico(long dir, Atributo at, HashEstatico he, string nomIndice)
+        {
+            List<HashEstatico_SubBloque> subBloque = null;
+            long dirCont = dir;
+
+            try
+            {
+                using (BinaryWriter w = new BinaryWriter(new FileStream(nomIndice, FileMode.Open)))
+                {
+                    subBloque = new List<HashEstatico_SubBloque>();
+
+                    w.Seek((int)dir, SeekOrigin.Begin);
+                    for (int i = 0; i < 14; i++)
+                    {
+                        HashEstatico_SubBloque hesb = new HashEstatico_SubBloque();
+                        switch (at.TipoDato)
+                        {
+                            case 'E':
+                                hesb.DirSubBloque = dirCont;
+                                hesb.Informacion = Convert.ToInt32(-1);
+                                hesb.DirInformacion = -1;
+
+                                w.Write(Convert.ToInt32(hesb.Informacion));
+                                w.Write(hesb.DirInformacion);
+
+                                subBloque.Add(hesb);
+                                dirCont += 12;
+                                break;
+                            case 'C':
+                                hesb.DirSubBloque = dirCont;
+                                hesb.Informacion = RellenaNombres("", at.Longitud - 1);
+                                hesb.DirInformacion = -1;
+
+                                w.Write(Convert.ToString(hesb.Informacion));
+                                w.Write(hesb.DirInformacion);
+
+                                subBloque.Add(hesb);
+                                dirCont += at.Longitud + 8;
+                                break;
+                        }
+                    }
+                    w.Write(he.Desbordamiento);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en la inicialización del un sub-bloque del hash estatico:\n" + ex.Message);
+            }
+
+            return subBloque;
+        }
+
+
     }
 } 

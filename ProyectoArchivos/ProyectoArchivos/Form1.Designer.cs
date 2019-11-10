@@ -58,6 +58,14 @@
             this.comboEntidades = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dtGrid_Atributos = new System.Windows.Forms.DataGridView();
+            this.NombreA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.txtB_NomAtributo = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -106,14 +114,16 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.NombreA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.dtGrid_HashEstatico = new System.Windows.Forms.DataGridView();
+            this.dtGrid_Cajon = new System.Windows.Forms.DataGridView();
+            this.comboHashEstatico = new System.Windows.Forms.ComboBox();
+            this.comboCajon = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Entidades)).BeginInit();
             this.TabControl1.SuspendLayout();
@@ -131,6 +141,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamicoSub_Bloque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamico)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Cajon)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -266,6 +279,7 @@
             this.TabControl1.Controls.Add(this.tabPage4);
             this.TabControl1.Controls.Add(this.tabPage5);
             this.TabControl1.Controls.Add(this.tabPage6);
+            this.TabControl1.Controls.Add(this.tabPage7);
             this.TabControl1.Location = new System.Drawing.Point(5, 27);
             this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
@@ -432,6 +446,53 @@
             this.dtGrid_Atributos.Name = "dtGrid_Atributos";
             this.dtGrid_Atributos.Size = new System.Drawing.Size(649, 302);
             this.dtGrid_Atributos.TabIndex = 29;
+            // 
+            // NombreA
+            // 
+            this.NombreA.HeaderText = "Nombre";
+            this.NombreA.Name = "NombreA";
+            this.NombreA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Direccion del Atributo";
+            this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Tipo de Dato";
+            this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Longitud de Dato";
+            this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Tipo de Indice";
+            this.Column4.Name = "Column4";
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Relación";
+            this.Column7.Name = "Column7";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Direccion del Indice";
+            this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Direccion del Siguiente Atributo";
+            this.Column6.Name = "Column6";
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // label3
             // 
@@ -872,52 +933,96 @@
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
-            // NombreA
+            // tabPage7
             // 
-            this.NombreA.HeaderText = "Nombre";
-            this.NombreA.Name = "NombreA";
-            this.NombreA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.tabPage7.Controls.Add(this.label12);
+            this.tabPage7.Controls.Add(this.label11);
+            this.tabPage7.Controls.Add(this.comboCajon);
+            this.tabPage7.Controls.Add(this.comboHashEstatico);
+            this.tabPage7.Controls.Add(this.dtGrid_Cajon);
+            this.tabPage7.Controls.Add(this.dtGrid_HashEstatico);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(667, 411);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Hash Estatico";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // Column1
+            // dtGrid_HashEstatico
             // 
-            this.Column1.HeaderText = "Direccion del Atributo";
-            this.Column1.Name = "Column1";
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dtGrid_HashEstatico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGrid_HashEstatico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column8});
+            this.dtGrid_HashEstatico.Location = new System.Drawing.Point(218, 6);
+            this.dtGrid_HashEstatico.Name = "dtGrid_HashEstatico";
+            this.dtGrid_HashEstatico.Size = new System.Drawing.Size(183, 399);
+            this.dtGrid_HashEstatico.TabIndex = 0;
             // 
-            // Column2
+            // dtGrid_Cajon
             // 
-            this.Column2.HeaderText = "Tipo de Dato";
-            this.Column2.Name = "Column2";
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dtGrid_Cajon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGrid_Cajon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column9,
+            this.Column10});
+            this.dtGrid_Cajon.Location = new System.Drawing.Point(407, 6);
+            this.dtGrid_Cajon.Name = "dtGrid_Cajon";
+            this.dtGrid_Cajon.Size = new System.Drawing.Size(254, 399);
+            this.dtGrid_Cajon.TabIndex = 1;
             // 
-            // Column3
+            // comboHashEstatico
             // 
-            this.Column3.HeaderText = "Longitud de Dato";
-            this.Column3.Name = "Column3";
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.comboHashEstatico.FormattingEnabled = true;
+            this.comboHashEstatico.Location = new System.Drawing.Point(55, 61);
+            this.comboHashEstatico.Name = "comboHashEstatico";
+            this.comboHashEstatico.Size = new System.Drawing.Size(157, 21);
+            this.comboHashEstatico.TabIndex = 2;
+            this.comboHashEstatico.SelectedIndexChanged += new System.EventHandler(this.comboHashEstatico_SelectedIndexChanged);
             // 
-            // Column4
+            // comboCajon
             // 
-            this.Column4.HeaderText = "Tipo de Indice";
-            this.Column4.Name = "Column4";
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.comboCajon.FormattingEnabled = true;
+            this.comboCajon.Location = new System.Drawing.Point(55, 116);
+            this.comboCajon.Name = "comboCajon";
+            this.comboCajon.Size = new System.Drawing.Size(157, 21);
+            this.comboCajon.TabIndex = 3;
+            this.comboCajon.SelectedIndexChanged += new System.EventHandler(this.comboCajon_SelectedIndexChanged);
             // 
-            // Column7
+            // label11
             // 
-            this.Column7.HeaderText = "Relación";
-            this.Column7.Name = "Column7";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 64);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 13);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Entidad:";
             // 
-            // Column5
+            // label12
             // 
-            this.Column5.HeaderText = "Direccion del Indice";
-            this.Column5.Name = "Column5";
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 119);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(37, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Cajón:";
             // 
-            // Column6
+            // Column8
             // 
-            this.Column6.HeaderText = "Direccion del Siguiente Atributo";
-            this.Column6.Name = "Column6";
-            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column8.HeaderText = "Dirección del Cajon";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Información";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Direccón de la Información";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
             // 
             // Form1
             // 
@@ -950,6 +1055,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamico)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Cajon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1043,6 +1152,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboCajon;
+        private System.Windows.Forms.ComboBox comboHashEstatico;
+        private System.Windows.Forms.DataGridView dtGrid_Cajon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridView dtGrid_HashEstatico;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
     }
 }
 
