@@ -262,6 +262,17 @@ namespace ProyectoArchivos
 
             return cadena1 + cadena2;
         }
+        static public int stringAASCIIValor(string cadena)
+        {
+            int acum = 0;
+       
+            foreach (char c in cadena.Split(' ').ToList()[0])
+            {
+                acum += Convert.ToInt32(c);
+            }
+
+            return acum;
+        }  
 
         static public void CreaArchivoDat(string nomDat)
         {
@@ -1266,7 +1277,192 @@ namespace ProyectoArchivos
 
             return subBloque;
         }
+        static public void EscribeHashEstaticoBloque(long dirinicio, Atributo at, List<HashEstatico> he, string nomIndice)
+        {
+            long dirCont = dirinicio;
 
+            try
+            {
+                using (BinaryWriter w = new BinaryWriter(new FileStream(nomIndice, FileMode.Open)))
+                {
+                    
+                    foreach (HashEstatico hesb in he)
+                    {
+                        w.Seek((int)dirCont, SeekOrigin.Begin);
+                        w.Write(hesb.DirBloque);
+                        dirCont += 8;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en EscribeHashEstaticoBloque:\n" + ex.Message);
+            }
+        }
+        static public void EscribeHashEstaticoSubBloque(long dirinicio, Atributo at, long desb, List<HashEstatico_SubBloque> hesb, string nomIndice)
+        {
+            long dirCont = dirinicio;
 
+            try
+            {
+                using (BinaryWriter w = new BinaryWriter(new FileStream(nomIndice, FileMode.Open)))
+                {
+                    foreach (HashEstatico_SubBloque h in hesb)
+                    {
+                        w.Seek((int)dirCont, SeekOrigin.Begin);
+                        switch (at.TipoDato)
+                        {
+                            case 'C':
+                                w.Write(Convert.ToString(h.Informacion));
+                                w.Write(h.DirInformacion);
+                                break;
+                        }
+                        dirCont += at.Longitud + 8;
+                    }
+                    w.Write(desb);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en EscribeHashEstaticoSubBloque:\n" + ex.Message);
+            }
+        }
+        static public List<HashEstatico> LeeHashEstaticoBloque(long dirinicio, string nomIndice)
+        {
+            long dirCont = dirinicio;
+            List<HashEstatico> hashBloque = new List<HashEstatico>();
+
+            try
+            {
+                using (BinaryReader r = new BinaryReader(File.Open(nomIndice, FileMode.Open)))
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        HashEstatico h = new HashEstatico();
+                        r.BaseStream.Seek(dirCont, SeekOrigin.Begin);
+
+                        h.DirIndice = dirCont;
+                        h.Sub_Bloque = null;
+                        h.DirBloque = r.ReadInt64();
+                        hashBloque.Add(h);
+                        dirCont += 8;
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en LeeHashEstaticoBloque: " + ex.Message);
+            }
+
+            return hashBloque;
+        }
+        static public List<HashEstatico_SubBloque> LeeHashHashEstaticoSubBloque(long dirinicio, Atributo at, string nomIndice)
+        {
+            long dirCont = dirinicio;
+            List<HashEstatico_SubBloque> hashBloque = new List<HashEstatico_SubBloque>();
+            try
+            {
+                using (BinaryReader r = new BinaryReader(File.Open(nomIndice, FileMode.Open)))
+                {
+                    for (int i = 0; i < 14; i++)
+                    {
+                        HashEstatico_SubBloque h = new HashEstatico_SubBloque();
+
+                        r.BaseStream.Seek(dirCont, SeekOrigin.Begin);
+                        switch(at.TipoDato)
+                        {
+                            case 'C':
+                                h.DirSubBloque = dirCont;
+                                h.Informacion = r.ReadString();
+                                h.DirInformacion = r.ReadInt64();
+                                dirCont += at.Longitud + 8;
+                                break;
+                            case 'E':
+                                h.DirSubBloque = dirCont;
+                                h.Informacion = r.ReadInt32();
+                                h.DirInformacion = r.ReadInt64();
+                                dirCont += 12;
+                                break;
+                        }
+                        hashBloque.Add(h);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en LeeHashEstaticoBloque: " + ex.Message);
+            }
+
+            return hashBloque;
+        }
+        static public long LeeHashEstaticoDesbordamiento(long dirinicio, string nomIndice)
+        {
+            long desborde = -1;
+
+            try
+            {
+                using (BinaryReader r = new BinaryReader(File.Open(nomIndice, FileMode.Open)))
+                {
+                    desborde = r.ReadInt64();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problema en LeeHashEstaticoDesbordamiento: " + ex.Message);
+            }
+
+            return desborde;
+        }
+        static public List<HashEstatico_SubBloque> OrdenaHashHashEstaticoSubBloque(List<HashEstatico_SubBloque> subs, Atributo at)
+        {
+            List<HashEstatico_SubBloque> listAux = new List<HashEstatico_SubBloque>();
+
+            foreach (HashEstatico_SubBloque iS in subs)
+            {
+                switch (at.TipoDato)
+                {
+                    case 'E':
+                        if (Convert.ToInt32(iS.Informacion) != 0)
+                        {
+                            HashEstatico_SubBloque aux = new HashEstatico_SubBloque();
+                            aux.Informacion = iS.Informacion;
+                            aux.DirInformacion = iS.DirInformacion;
+                            listAux.Add(aux);
+                        }
+                        break;
+                    case 'C':
+                        if (!Convert.ToString(iS.Informacion).Equals(RellenaNombres("", at.Longitud - 1)))
+                        {
+                            HashEstatico_SubBloque aux = new HashEstatico_SubBloque();
+                            aux.Informacion = iS.Informacion;
+                            aux.DirInformacion = iS.DirInformacion;
+                            listAux.Add(aux);
+                        }
+                        break;
+                }
+            }
+            listAux = listAux.OrderBy(ord => ord.Informacion).ToList();
+            for (int i = 0; i < subs.Count; i++)
+            {
+                if (i < listAux.Count)
+                {
+                    subs[i].Informacion = listAux[i].Informacion;
+                    subs[i].DirInformacion = listAux[i].DirInformacion;
+                }
+                else
+                {
+                    if (at.TipoDato == 'E')
+                        subs[i].Informacion = 0;
+                    else if (at.TipoDato == 'C')
+                        subs[i].Informacion = RellenaNombres("", at.Longitud - 1);
+                    subs[i].DirInformacion = -1;
+                }
+            }
+
+            return subs;
+        }
     }
 } 

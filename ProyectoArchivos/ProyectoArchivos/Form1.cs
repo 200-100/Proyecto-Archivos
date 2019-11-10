@@ -156,6 +156,7 @@ namespace ProyectoArchivos
             Registro registroLeido = null;
             IndicePrimario indiceprimarioLeido = null;
             IndiceSecundario indicesecundarioLeido = null;
+            List<HashEstatico> hashEstatico = null;
             HashDinamico hsLeido = null;
             string rutaReg, rutaIdx;
             FileInfo file;
@@ -215,6 +216,7 @@ namespace ProyectoArchivos
                     comboEntidadesRegistros.Items.Add(en.Nombre);
                     comboPK.Items.Add(en.Nombre);
                     comboHashDinamico.Items.Add(en.Nombre);
+                    comboHashEstatico.Items.Add(en.Nombre);
                 }
                 dtGrid_Registros.Rows.Clear();
                 dtGrid_Registros.Columns.Clear();
@@ -310,6 +312,20 @@ namespace ProyectoArchivos
                                                 dirAux += at.Longitud + 8;
                                             }
                                             en.FKs.Add(auxSec);
+                                        }
+                                        break;
+                                    #endregion
+                                    case 5:
+                                        #region Indice Secundario
+                                        if (at.TipoDato == 'C')
+                                        {
+                                            hashEstatico = Archivo.LeeHashEstaticoBloque(at.DireccionIndice, rutaIdx);
+                                            foreach (HashEstatico h in hashEstatico)
+                                            {
+                                                h.Sub_Bloque = Archivo.LeeHashHashEstaticoSubBloque(h.DirBloque, at, rutaIdx);
+                                                h.Desbordamiento = Archivo.LeeHashEstaticoDesbordamiento(h.Sub_Bloque[h.Sub_Bloque.Count - 1].DirSubBloque + at.Longitud + 8, rutaIdx);
+                                            }
+                                            en.HE = hashEstatico;
                                         }
                                         break;
                                     #endregion
@@ -721,6 +737,7 @@ namespace ProyectoArchivos
                                     hesb.DirBloque = tam;
                                     hesb.Sub_Bloque = Archivo.InicializaSub_BloqueInicializaHashEstatico(tam, at, hesb, nameFileIdx);
                                 }
+                                Archivo.EscribeHashEstaticoBloque(at.DireccionIndice, at, DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE, nameFileIdx);
                                 for (int h = 1; h <= 10; h++)
                                 {
                                     comboCajon.Items.Add("L" + h.ToString());
@@ -894,12 +911,18 @@ namespace ProyectoArchivos
                         break;
                     }
                 }
-                for (int i = 0; i < DD.Entidades[posE].Registros.Count; i++)
+                for (int Y = 0; Y < DD.Entidades[posE].Atributos.Count; Y++)
                 {
-                    if (Archivo.RellenaNombres(Convert.ToString(DD.Entidades[posE].Registros[i].Informacion[rPrimario]),3) == Archivo.RellenaNombres(Convert.ToString(r.Informacion[rPrimario]),3))
+                    if (DD.Entidades[posE].Atributos[Y].TipoIndice.Equals(2))
                     {
-                        MessageBox.Show("No se puede almacenar la informacion porque ya existe algún registro con la misma clave primaria.");
-                        return;
+                        for (int i = 0; i < DD.Entidades[posE].Registros.Count; i++)
+                        {
+                            if (Archivo.RellenaNombres(Convert.ToString(DD.Entidades[posE].Registros[i].Informacion[rPrimario]), 3) == Archivo.RellenaNombres(Convert.ToString(r.Informacion[rPrimario]), 3))
+                            {
+                                MessageBox.Show("No se puede almacenar la informacion porque ya existe algún registro con la misma clave primaria.");
+                                return;
+                            }
+                        }
                     }
                 }
                 #endregion
@@ -1214,6 +1237,33 @@ namespace ProyectoArchivos
                             pos++;
                             break;
                         #endregion
+                        case 5:
+                            #region Hash Estatico
+                            switch (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoDato)
+                            {
+                                case 'C':
+                                    float casilla = Convert.ToSingle(Archivo.stringAASCIIValor(Convert.ToString(r.Informacion[i]))) / Convert.ToSingle(DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE.Count);
+                                    int cajon = Convert.ToString(casilla)[Convert.ToString(casilla).IndexOf(".") + 1] - 48;
+
+                                    if ((Convert.ToSingle(Archivo.stringAASCIIValor(Convert.ToString(r.Informacion[i]))) % Convert.ToSingle(DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE.Count)) == 0)
+                                    {
+                                        cajon = 0;
+                                    }
+                                    foreach (HashEstatico_SubBloque hesb in DD.Entidades[pos].HE[cajon].Sub_Bloque)
+                                    {
+                                        if (Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1).Equals(hesb.Informacion))
+                                        {
+                                            hesb.Informacion = Convert.ToString(r.Informacion[i]);
+                                            hesb.DirInformacion = r.DirRegistro;
+                                            break;
+                                            //CHECAR SI HAY DESBORDAMIENTO
+                                        }
+                                    }
+                                    Archivo.EscribeHashEstaticoSubBloque(DD.Entidades[pos].HE[cajon].DirBloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i], DD.Entidades[pos].HE[cajon].Desbordamiento, DD.Entidades[pos].HE[cajon].Sub_Bloque, rutaReg);
+                                    break;
+                            }
+                            break;
+                            #endregion
                         case 6:
                             #region Hash Dinamico
                             if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoDato == 'E')
@@ -1547,6 +1597,29 @@ namespace ProyectoArchivos
                         }
                         pos++;
                         break;
+                    #endregion
+                    case 5:
+                        #region Hash Estatico
+                        switch (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoDato)
+                        {
+                            case 'C':
+                                foreach (HashEstatico heb in DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE)
+                                {
+                                    foreach (HashEstatico_SubBloque h in heb.Sub_Bloque)
+                                    {
+                                        if (h.DirInformacion == regAux.DirRegistro)
+                                        {
+                                            h.Informacion = Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1);
+                                            h.DirInformacion = -1;
+                                            Archivo.OrdenaHashHashEstaticoSubBloque(heb.Sub_Bloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i]);
+                                            Archivo.EscribeHashEstaticoSubBloque(heb.DirBloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i], heb.Desbordamiento, heb.Sub_Bloque, nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+                        break;
                         #endregion
                 }
             }
@@ -1564,7 +1637,6 @@ namespace ProyectoArchivos
         private void button_Modifica_Registro_Click(object sender, EventArgs e)
         {
             string rutaReg = nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".dat";
-            int intAnt = -1;
             string cadAnt = "";
             object infoAux;
             int iAux;
@@ -1576,300 +1648,8 @@ namespace ProyectoArchivos
             FileInfo file = new FileInfo(nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
             Registro r = new Registro();
             Registro regAux = new Registro();
-            int posE = comboEntidadesRegistros.SelectedIndex;
-            int tRelacion = -1;
-            int rPrimario = -1;
-            int rSecundario = -1;
-            int cont = 0;
-            int currentColumn = dtGrid_Registros.CurrentCell.ColumnIndex;
-            int currentRow = dtGrid_Registros.CurrentCell.RowIndex;
 
             regAux = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex];
-            #region Registros
-            //Aqui guardo el valor anterior del atributo
-            if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'E')
-            {
-                intAnt = Convert.ToInt32(regAux.Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1]);
-            }
-            else if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'C')
-            {
-                cadAnt = (string)DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1];
-            }
-
-            if (!dtGrid_Registros.CurrentCell.Value.Equals(""))
-            {
-                if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'E')
-                {
-                    infoAux = dtGrid_Registros.CurrentCell.Value;
-                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres((string)dtGrid_Registros.CurrentCell.Value, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].Longitud - 1);
-                    r = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex];
-                    #region Busqueda de Informacion de Indice Primario en Indice Secundario
-                    for (int i = 0; i < DD.Entidades[posE].Atributos.Count; i++)
-                    {
-                        cont = 0;
-                        if (DD.Entidades[posE].Atributos[i].TipoIndice.Equals(3))
-                        {
-                            rSecundario = i;
-                            for (int j = 0; j < DD.Entidades.Count; j++)
-                            {
-                                if (DD.Entidades[posE].Atributos[i].TablaRelacion.Equals(DD.Entidades[j].Nombre))
-                                {
-                                    tRelacion = j;
-                                    for (int k = 0; k < DD.Entidades[tRelacion].Atributos.Count; k++)
-                                    {
-                                        if (DD.Entidades[tRelacion].Atributos[k].TipoIndice.Equals(2))
-                                        {
-                                            rPrimario = k;
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                            if (tRelacion != -1)
-                            {
-                                if (DD.Entidades[tRelacion].Registros.Count > 0)
-                                {
-                                    for (int o = 0; o < DD.Entidades[tRelacion].Registros.Count; o++)
-                                    {
-                                        if ((DD.Entidades[tRelacion].Atributos[rSecundario].TipoDato.Equals('E')))
-                                        {
-                                            if (r.Informacion[rSecundario].Equals(Archivo.RellenaNombres(Convert.ToString(DD.Entidades[tRelacion].Registros[o].Informacion[rPrimario]), 3))) { break; }
-                                            else { cont++; }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres(Convert.ToString(regAux), 3);
-                                    Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                                    MessageBox.Show("No se puede modificar el registro porque no hay registros para que haya una relacion con la clave secundaria.");
-                                    return;
-                                }
-                                if (cont == DD.Entidades[tRelacion].Registros.Count)
-                                {
-                                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres(Convert.ToString(intAnt), 3);
-                                    MessageBox.Show("No se puede modificar el registro porque la informacion de la clave secundaria no coincide con la de la clave primaria en la tabla con la que hace relación.");
-                                    Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                                    dtGrid_Registros.Rows.Clear();
-                                    foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
-                                    {
-                                        dtGrid_Registros.Rows.Add();
-                                    }
-                                    for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                                    {
-                                        dtGrid_Registros[0, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirRegistro;
-                                        dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirSigRegistro;
-                                    }
-                                    for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                                    {
-                                        for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
-                                        {
-                                            dtGrid_Registros[j, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].Informacion[j - 1];
-                                        }
-                                    }
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    #endregion
-                    #region Busqueda de que no se repitan los Indices Primario
-                    for (int i = 0; i < DD.Entidades[posE].Atributos.Count; i++)
-                    {
-                        if (DD.Entidades[posE].Atributos[i].TipoIndice.Equals(2))
-                        {
-                            rPrimario = i;
-                            dtGrid_Registros.Rows.Clear();
-                            foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
-                            {
-                                dtGrid_Registros.Rows.Add();
-                            }
-                            for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                            {
-                                dtGrid_Registros[0, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirRegistro;
-                                dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirSigRegistro;
-                            }
-                            for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                            {
-                                for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
-                                {
-                                    dtGrid_Registros[j, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].Informacion[j - 1];
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    int v = Convert.ToInt32(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[currentRow].Informacion[currentColumn - 1]);
-                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[currentRow].Informacion[currentColumn - 1] = Archivo.RellenaNombres(Convert.ToString(intAnt), 3);
-                    for (int i = 0; i < DD.Entidades[posE].Registros.Count; i++)
-                    {
-                        if (Archivo.RellenaNombres(Convert.ToString(DD.Entidades[posE].Registros[i].Informacion[rPrimario]), 3) == Archivo.RellenaNombres(Convert.ToString(v), 3))
-                        {
-                            MessageBox.Show("No se puede almacenar la informacion porque ya existe algún registro con la misma clave primaria.");
-                            Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                            return;
-                        }
-                    }
-                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[currentRow].Informacion[currentColumn - 1] = v;
-                    #endregion
-                }
-                else if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'C')
-                {
-                    infoAux = dtGrid_Registros.CurrentCell.Value;
-                    cadAnt = (string)DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1];
-                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres((string)dtGrid_Registros.CurrentCell.Value, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].Longitud - 1);
-                    r = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex];
-                    #region Busqueda de Informacion de Indice Primario en Indice Secundario
-                    for (int i = 0; i < DD.Entidades[posE].Atributos.Count; i++)
-                    {
-                        cont = 0;
-                        if (DD.Entidades[posE].Atributos[i].TipoIndice.Equals(3))
-                        {
-                            rSecundario = i;
-                            for (int j = 0; j < DD.Entidades.Count; j++)
-                            {
-                                if (DD.Entidades[posE].Atributos[i].TablaRelacion.Equals(DD.Entidades[j].Nombre))
-                                {
-                                    tRelacion = j;
-                                    for (int k = 0; k < DD.Entidades[tRelacion].Atributos.Count; k++)
-                                    {
-                                        if (DD.Entidades[tRelacion].Atributos[k].TipoIndice.Equals(2))
-                                        {
-                                            rPrimario = k;
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                            if (tRelacion != -1)
-                            {
-                                if (DD.Entidades[tRelacion].Registros.Count > 0)
-                                {
-                                    for (int o = 0; o < DD.Entidades[tRelacion].Registros.Count; o++)
-                                    {
-                                        if ((DD.Entidades[tRelacion].Atributos[rSecundario].TipoDato.Equals('E')))
-                                        {
-                                            if (r.Informacion[rSecundario].Equals(Archivo.RellenaNombres(Convert.ToString(DD.Entidades[tRelacion].Registros[o].Informacion[rPrimario]), 3))) { break; }
-                                            else { cont++; }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex] = regAux;
-                                    Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                                    MessageBox.Show("No se puede insetar el registro porque no hay registros para que haya una relacion con la clave secundaria.");
-                                    return;
-                                }
-                                if (cont == DD.Entidades[tRelacion].Registros.Count)
-                                {
-                                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex] = regAux;
-                                    MessageBox.Show("No se puede insertar el registro porque la informacion de la clave secundaria no coincide con la de la clave primaria en la tabla con la que hace relación.");
-                                    Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                                    dtGrid_Registros.Rows.Clear();
-                                    foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
-                                    {
-                                        dtGrid_Registros.Rows.Add();
-                                    }
-                                    for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                                    {
-                                        dtGrid_Registros[0, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirRegistro;
-                                        dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirSigRegistro;
-                                    }
-                                    for (int k = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                                    {
-                                        for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
-                                        {
-                                            dtGrid_Registros[j, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].Informacion[j - 1];
-                                        }
-                                    }
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    #endregion
-                    #region Busqueda de que no se repitan los Indices Primario
-                    for (int i = 0; i < DD.Entidades[posE].Atributos.Count; i++)
-                    {
-                        if (DD.Entidades[posE].Atributos[i].TipoIndice.Equals(2))
-                        {
-                            rPrimario = i;
-                            dtGrid_Registros.Rows.Clear();
-                            foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
-                            {
-                                dtGrid_Registros.Rows.Add();
-                            }
-                            for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                            {
-                                dtGrid_Registros[0, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirRegistro;
-                                dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].DirSigRegistro;
-                            }
-                            for (int k = 0; k < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; k++)
-                            {
-                                for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
-                                {
-                                    dtGrid_Registros[j, k].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[k].Informacion[j - 1];
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < DD.Entidades[posE].Registros.Count; i++)
-                    {
-                        if (Archivo.RellenaNombres(Convert.ToString(DD.Entidades[posE].Registros[i].Informacion[rPrimario]), 3) == Archivo.RellenaNombres(Convert.ToString(r.Informacion[rPrimario]), 3))
-                        {
-                            DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex] = regAux;
-                            MessageBox.Show("No se puede almacenar la informacion porque ya existe algún registro con la misma clave primaria.");
-                            Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-                            return;
-                        }
-                    }
-                    #endregion
-                }
-            }
-            Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-            //Este es el nuevo
-            r = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex];
-
-            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count; i++)
-            {
-                if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoIndice == 1)
-                {
-                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.OrderBy(reg => reg.Informacion[i]).ToList();
-                }
-            }
-            DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros = Archivo.ActualizaRegistros(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros, DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
-            DD.Entidades[comboEntidadesRegistros.SelectedIndex].DireccionDato = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[0].DirRegistro;
-            Archivo.EscribeEntidad(DD.Entidades[comboEntidadesRegistros.SelectedIndex], nomArchivo);
-            dtGrid_Entidades.Rows.Clear();
-
-            foreach (Entidad en in DD.Entidades)
-            {
-                dtGrid_Entidades.Rows.Add(en.Nombre, en.DireccionEntidad, en.DireccionAtributo, en.DireccionDato, en.DireccionSigEntidad);
-            }
-            dtGrid_Registros.Rows.Clear();
-            foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
-            {
-                dtGrid_Registros.Rows.Add();
-            }
-            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; i++)
-            {
-                dtGrid_Registros[0, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].DirRegistro;
-                dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].DirSigRegistro;
-            }
-            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; i++)
-            {
-                for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
-                {
-                    dtGrid_Registros[j, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].Informacion[j - 1];
-                }
-            }
-            #endregion
-            
-            
             pos = 0;
             for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count; i++)
             {
@@ -1963,10 +1743,95 @@ namespace ProyectoArchivos
                         }
                         pos++;
                         break;
+                    #endregion
+                    case 5:
+                        #region Hash Estatico
+                        switch (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoDato)
+                        {
+                            case 'C':
+                                foreach (HashEstatico heb in DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE)
+                                {
+                                    foreach (HashEstatico_SubBloque h in heb.Sub_Bloque)
+                                    {
+                                        if (h.DirInformacion == regAux.DirRegistro)
+                                        {
+                                            h.Informacion = Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1);
+                                            h.DirInformacion = -1;
+                                            Archivo.OrdenaHashHashEstaticoSubBloque(heb.Sub_Bloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i]);
+                                            Archivo.EscribeHashEstaticoSubBloque(heb.DirBloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i], heb.Desbordamiento, heb.Sub_Bloque, nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+                        break;
                         #endregion
                 }
             }
-            
+            #region Registros
+            //Aqui guardo el valor anterior del atributo
+            if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'E')
+            {
+                //intAnt = (int)DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1];
+            }
+            else if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'C')
+            {
+                cadAnt = (string)DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1];
+            }
+
+            if (!dtGrid_Registros.CurrentCell.Value.Equals(""))
+            {
+                if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'E')
+                {
+                    infoAux = dtGrid_Registros.CurrentCell.Value;
+                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres((string)dtGrid_Registros.CurrentCell.Value, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].Longitud - 1);
+                }
+                else if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].TipoDato == 'C')
+                {
+                    infoAux = dtGrid_Registros.CurrentCell.Value;
+                    cadAnt = (string)DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1];
+                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex].Informacion[dtGrid_Registros.CurrentCell.ColumnIndex - 1] = Archivo.RellenaNombres((string)dtGrid_Registros.CurrentCell.Value, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[dtGrid_Registros.CurrentCell.ColumnIndex - 1].Longitud - 1);
+                }
+            }
+            Archivo.EscribeRegistro(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex], DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
+            //Este es el nuevo
+            r = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[dtGrid_Registros.CurrentCell.RowIndex];
+
+            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count; i++)
+            {
+                if (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoIndice == 1)
+                {
+                    DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.OrderBy(reg => reg.Informacion[i]).ToList();
+                }
+            }
+            DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros = Archivo.ActualizaRegistros(DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros, DD.Entidades[comboEntidadesRegistros.SelectedIndex], rutaReg);
+            DD.Entidades[comboEntidadesRegistros.SelectedIndex].DireccionDato = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[0].DirRegistro;
+            Archivo.EscribeEntidad(DD.Entidades[comboEntidadesRegistros.SelectedIndex], nomArchivo);
+            dtGrid_Entidades.Rows.Clear();
+
+            foreach (Entidad en in DD.Entidades)
+            {
+                dtGrid_Entidades.Rows.Add(en.Nombre, en.DireccionEntidad, en.DireccionAtributo, en.DireccionDato, en.DireccionSigEntidad);
+            }
+            dtGrid_Registros.Rows.Clear();
+            foreach (Registro reg in DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros)
+            {
+                dtGrid_Registros.Rows.Add();
+            }
+            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; i++)
+            {
+                dtGrid_Registros[0, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].DirRegistro;
+                dtGrid_Registros[DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].DirSigRegistro;
+            }
+            for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros.Count; i++)
+            {
+                for (int j = 1; j < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count + 1; j++)
+                {
+                    dtGrid_Registros[j, i].Value = DD.Entidades[comboEntidadesRegistros.SelectedIndex].Registros[i].Informacion[j - 1];
+                }
+            }
+            #endregion
             //RECUARDA QUE APARTIR DE AQUI RUTA DE ARCHIVO IDX SE PONE DIRECTO
             pos = 0;
             for (int i = 0; i < DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos.Count; i++)
@@ -2236,6 +2101,33 @@ namespace ProyectoArchivos
                             }
                         }
                         pos++;
+                        break;
+                    #endregion
+                    case 5:
+                        #region Hash Estatico
+                        switch (DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].TipoDato)
+                        {
+                            case 'C':
+                                float casilla = Convert.ToSingle(Archivo.stringAASCIIValor(Convert.ToString(r.Informacion[i]))) / Convert.ToSingle(DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE.Count);
+                                int cajon = Convert.ToString(casilla)[Convert.ToString(casilla).IndexOf(".") + 1] - 48;
+
+                                if ((Convert.ToSingle(Archivo.stringAASCIIValor(Convert.ToString(r.Informacion[i]))) % Convert.ToSingle(DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE.Count)) == 0)
+                                {
+                                    cajon = 0;
+                                }
+                                foreach (HashEstatico_SubBloque hesb in DD.Entidades[pos].HE[cajon].Sub_Bloque)
+                                {
+                                    if (Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1).Equals(hesb.Informacion))
+                                    {
+                                        hesb.Informacion = Convert.ToString(r.Informacion[i]);
+                                        hesb.DirInformacion = r.DirRegistro;
+                                        break;
+                                        //CHECAR SI HAY DESBORDAMIENTO
+                                    }
+                                }
+                                Archivo.EscribeHashEstaticoSubBloque(DD.Entidades[pos].HE[cajon].DirBloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i], DD.Entidades[pos].HE[cajon].Desbordamiento, DD.Entidades[pos].HE[cajon].Sub_Bloque, nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
+                                break;
+                        }
                         break;
                         #endregion
 
