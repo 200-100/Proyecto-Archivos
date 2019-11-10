@@ -28,11 +28,11 @@ namespace ProyectoArchivos
             TabControl1.Enabled = false;
             comboTipoDato.Items.Add("Entero");
             comboTipoDato.Items.Add("Cadena");
-            comboIndice.Items.Add("0");
-            comboIndice.Items.Add("1");
-            comboIndice.Items.Add("2");
-            comboIndice.Items.Add("3");
-            comboIndice.Items.Add("5");
+            comboIndice.Items.Add("0 - SIN CLAVE");
+            comboIndice.Items.Add("1 - SECUENCIAL");
+            comboIndice.Items.Add("2 - SECUANCIAL INDEXADA");
+            comboIndice.Items.Add("3 - CLAVE SECUNDARIA");
+            comboIndice.Items.Add("5 - HASH ESTATICO");
             txtB_Busqueda.Enabled = false;
         }
 
