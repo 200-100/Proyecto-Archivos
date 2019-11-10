@@ -70,15 +70,30 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Primario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Primario.Designer.cs">
+      <DependentUpon>Primario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.cs" />
+    <Compile Include="secundario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="secundario.Designer.cs">
+      <DependentUpon>secundario.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ProyectoArchivos.Form1.resources" />
     <EmbeddedResource Include="obj\Debug\ProyectoArchivos.Properties.Resources.resources" />
+    <EmbeddedResource Include="Primario.resx">
+      <DependentUpon>Primario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -88,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="secundario.resx">
+      <DependentUpon>secundario.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\ProyectoArchivos.csproj.CoreCompileInputs.cache" />

@@ -91,7 +91,6 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.comboSub_BloqueFK = new System.Windows.Forms.ComboBox();
             this.comboAtributosFK = new System.Windows.Forms.ComboBox();
             this.comboFK = new System.Windows.Forms.ComboBox();
             this.dtGrid_Sub_BloquesFK = new System.Windows.Forms.DataGridView();
@@ -110,20 +109,23 @@
             this.dtGrid_HashDinamico = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDir = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboCajon = new System.Windows.Forms.ComboBox();
+            this.comboHashEstatico = new System.Windows.Forms.ComboBox();
+            this.dtGrid_Cajon = new System.Windows.Forms.DataGridView();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtGrid_HashEstatico = new System.Windows.Forms.DataGridView();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.dtGrid_HashEstatico = new System.Windows.Forms.DataGridView();
-            this.dtGrid_Cajon = new System.Windows.Forms.DataGridView();
-            this.comboHashEstatico = new System.Windows.Forms.ComboBox();
-            this.comboCajon = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboSub_BloqueFK = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Entidades)).BeginInit();
             this.TabControl1.SuspendLayout();
@@ -140,10 +142,10 @@
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamicoSub_Bloque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamico)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.tabPage7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Cajon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -512,6 +514,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.comboBusqueda);
             this.tabPage3.Controls.Add(this.txtB_Busqueda);
             this.tabPage3.Controls.Add(this.label9);
@@ -737,15 +741,6 @@
             this.tabPage5.Text = "Indice Secundario";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // comboSub_BloqueFK
-            // 
-            this.comboSub_BloqueFK.FormattingEnabled = true;
-            this.comboSub_BloqueFK.Location = new System.Drawing.Point(28, 213);
-            this.comboSub_BloqueFK.Name = "comboSub_BloqueFK";
-            this.comboSub_BloqueFK.Size = new System.Drawing.Size(158, 21);
-            this.comboSub_BloqueFK.TabIndex = 9;
-            this.comboSub_BloqueFK.SelectedIndexChanged += new System.EventHandler(this.comboSub_BloqueFK_SelectedIndexChanged);
-            // 
             // comboAtributosFK
             // 
             this.comboAtributosFK.FormattingEnabled = true;
@@ -897,6 +892,97 @@
             this.ColumnDir.HeaderText = "Dirección del Bloque";
             this.ColumnDir.Name = "ColumnDir";
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.label12);
+            this.tabPage7.Controls.Add(this.label11);
+            this.tabPage7.Controls.Add(this.comboCajon);
+            this.tabPage7.Controls.Add(this.comboHashEstatico);
+            this.tabPage7.Controls.Add(this.dtGrid_Cajon);
+            this.tabPage7.Controls.Add(this.dtGrid_HashEstatico);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(667, 411);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Hash Estatico";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 119);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(37, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Cajón:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 64);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 13);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Entidad:";
+            // 
+            // comboCajon
+            // 
+            this.comboCajon.FormattingEnabled = true;
+            this.comboCajon.Location = new System.Drawing.Point(55, 116);
+            this.comboCajon.Name = "comboCajon";
+            this.comboCajon.Size = new System.Drawing.Size(157, 21);
+            this.comboCajon.TabIndex = 3;
+            this.comboCajon.SelectedIndexChanged += new System.EventHandler(this.comboCajon_SelectedIndexChanged);
+            // 
+            // comboHashEstatico
+            // 
+            this.comboHashEstatico.FormattingEnabled = true;
+            this.comboHashEstatico.Location = new System.Drawing.Point(55, 61);
+            this.comboHashEstatico.Name = "comboHashEstatico";
+            this.comboHashEstatico.Size = new System.Drawing.Size(157, 21);
+            this.comboHashEstatico.TabIndex = 2;
+            this.comboHashEstatico.SelectedIndexChanged += new System.EventHandler(this.comboHashEstatico_SelectedIndexChanged);
+            // 
+            // dtGrid_Cajon
+            // 
+            this.dtGrid_Cajon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGrid_Cajon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column9,
+            this.Column10});
+            this.dtGrid_Cajon.Location = new System.Drawing.Point(407, 6);
+            this.dtGrid_Cajon.Name = "dtGrid_Cajon";
+            this.dtGrid_Cajon.Size = new System.Drawing.Size(254, 399);
+            this.dtGrid_Cajon.TabIndex = 1;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Información";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Direccón de la Información";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // dtGrid_HashEstatico
+            // 
+            this.dtGrid_HashEstatico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGrid_HashEstatico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column8});
+            this.dtGrid_HashEstatico.Location = new System.Drawing.Point(218, 6);
+            this.dtGrid_HashEstatico.Name = "dtGrid_HashEstatico";
+            this.dtGrid_HashEstatico.Size = new System.Drawing.Size(183, 399);
+            this.dtGrid_HashEstatico.TabIndex = 0;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Dirección del Cajon";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -933,96 +1019,34 @@
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
-            // tabPage7
+            // comboSub_BloqueFK
             // 
-            this.tabPage7.Controls.Add(this.label12);
-            this.tabPage7.Controls.Add(this.label11);
-            this.tabPage7.Controls.Add(this.comboCajon);
-            this.tabPage7.Controls.Add(this.comboHashEstatico);
-            this.tabPage7.Controls.Add(this.dtGrid_Cajon);
-            this.tabPage7.Controls.Add(this.dtGrid_HashEstatico);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(667, 411);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Hash Estatico";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.comboSub_BloqueFK.FormattingEnabled = true;
+            this.comboSub_BloqueFK.Location = new System.Drawing.Point(28, 213);
+            this.comboSub_BloqueFK.Name = "comboSub_BloqueFK";
+            this.comboSub_BloqueFK.Size = new System.Drawing.Size(158, 21);
+            this.comboSub_BloqueFK.TabIndex = 9;
+            this.comboSub_BloqueFK.SelectedIndexChanged += new System.EventHandler(this.comboSub_BloqueFK_SelectedIndexChanged);
             // 
-            // dtGrid_HashEstatico
+            // button1
             // 
-            this.dtGrid_HashEstatico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGrid_HashEstatico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column8});
-            this.dtGrid_HashEstatico.Location = new System.Drawing.Point(218, 6);
-            this.dtGrid_HashEstatico.Name = "dtGrid_HashEstatico";
-            this.dtGrid_HashEstatico.Size = new System.Drawing.Size(183, 399);
-            this.dtGrid_HashEstatico.TabIndex = 0;
+            this.button1.Location = new System.Drawing.Point(471, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // dtGrid_Cajon
+            // button2
             // 
-            this.dtGrid_Cajon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGrid_Cajon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column9,
-            this.Column10});
-            this.dtGrid_Cajon.Location = new System.Drawing.Point(407, 6);
-            this.dtGrid_Cajon.Name = "dtGrid_Cajon";
-            this.dtGrid_Cajon.Size = new System.Drawing.Size(254, 399);
-            this.dtGrid_Cajon.TabIndex = 1;
-            // 
-            // comboHashEstatico
-            // 
-            this.comboHashEstatico.FormattingEnabled = true;
-            this.comboHashEstatico.Location = new System.Drawing.Point(55, 61);
-            this.comboHashEstatico.Name = "comboHashEstatico";
-            this.comboHashEstatico.Size = new System.Drawing.Size(157, 21);
-            this.comboHashEstatico.TabIndex = 2;
-            this.comboHashEstatico.SelectedIndexChanged += new System.EventHandler(this.comboHashEstatico_SelectedIndexChanged);
-            // 
-            // comboCajon
-            // 
-            this.comboCajon.FormattingEnabled = true;
-            this.comboCajon.Location = new System.Drawing.Point(55, 116);
-            this.comboCajon.Name = "comboCajon";
-            this.comboCajon.Size = new System.Drawing.Size(157, 21);
-            this.comboCajon.TabIndex = 3;
-            this.comboCajon.SelectedIndexChanged += new System.EventHandler(this.comboCajon_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 64);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 13);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "Entidad:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 119);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(37, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Cajón:";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Dirección del Cajon";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Información";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Direccón de la Información";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
+            this.button2.Location = new System.Drawing.Point(561, 29);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
@@ -1053,12 +1077,12 @@
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamicoSub_Bloque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashDinamico)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Cajon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGrid_HashEstatico)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1115,7 +1139,6 @@
         private System.Windows.Forms.DataGridView dtGrid_FK;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.ComboBox comboSub_BloqueFK;
         private System.Windows.Forms.ComboBox comboAtributosFK;
         private System.Windows.Forms.ComboBox comboFK;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -1162,6 +1185,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridView dtGrid_HashEstatico;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.ComboBox comboSub_BloqueFK;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

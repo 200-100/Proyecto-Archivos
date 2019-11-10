@@ -2905,5 +2905,20 @@ namespace ProyectoArchivos
                 }
             }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Form formulario = new Primario(DD);
+
+        
+            formulario.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form formulario2 = new secundario();
+            formulario2.Show();
+
+        }
     }
 }
