@@ -2788,11 +2788,12 @@ namespace ProyectoArchivos
                 int posT = comboEntidades.SelectedIndex;
                 string indice = comboIndice.Items[comboIndice.SelectedIndex].ToString();
 
-                if (pos != -1 && indice.Equals("3") && posT != -1)
+                if (pos != -1 && indice.Equals("3 - CLAVE SECUNDARIA") && posT != -1)
                 {
                     comboRelacion.Enabled = true;
                     comboTipoDato.Enabled = false;
                     comboRelacion.Items.Clear();
+                    Console.WriteLine(34);
                     foreach (Entidad t in DD.Entidades)
                     {
                         foreach (Atributo at in t.Atributos)
