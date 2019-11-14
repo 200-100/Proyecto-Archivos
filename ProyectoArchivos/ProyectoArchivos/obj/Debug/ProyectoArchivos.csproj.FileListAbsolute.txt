@@ -74,5 +74,3 @@ C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj
 C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe.config
 C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.exe
 C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\bin\Debug\ProyectoArchivos.pdb
-C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.Primario.resources
-C:\Users\aalem\Documents\Proyecto-Archivos\ProyectoArchivos\ProyectoArchivos\obj\Debug\ProyectoArchivos.secundario.resources

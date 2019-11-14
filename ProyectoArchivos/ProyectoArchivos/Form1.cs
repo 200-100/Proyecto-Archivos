@@ -316,7 +316,7 @@ namespace ProyectoArchivos
                                         break;
                                     #endregion
                                     case 5:
-                                        #region Indice Secundario
+                                        #region Hash Estatico
                                         if (at.TipoDato == 'C')
                                         {
                                             hashEstatico = Archivo.LeeHashEstaticoBloque(at.DireccionIndice, rutaIdx);
@@ -1249,7 +1249,7 @@ namespace ProyectoArchivos
                                     {
                                         cajon = 0;
                                     }
-                                    foreach (HashEstatico_SubBloque hesb in DD.Entidades[pos].HE[cajon].Sub_Bloque)
+                                    foreach (HashEstatico_SubBloque hesb in DD.Entidades[posE].HE[cajon].Sub_Bloque)
                                     {
                                         if (Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1).Equals(hesb.Informacion))
                                         {
@@ -1642,6 +1642,7 @@ namespace ProyectoArchivos
             int iAux;
             char cAux;
             string sAux;
+            int posE = comboEntidadesRegistros.SelectedIndex;
             long tam;
             int pos = 0;
             bool vacio = true;
@@ -2115,7 +2116,7 @@ namespace ProyectoArchivos
                                 {
                                     cajon = 0;
                                 }
-                                foreach (HashEstatico_SubBloque hesb in DD.Entidades[pos].HE[cajon].Sub_Bloque)
+                                foreach (HashEstatico_SubBloque hesb in DD.Entidades[comboEntidadesRegistros.SelectedIndex].HE[cajon].Sub_Bloque)
                                 {
                                     if (Archivo.RellenaNombres("", DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i].Longitud - 1).Equals(hesb.Informacion))
                                     {
@@ -2125,7 +2126,7 @@ namespace ProyectoArchivos
                                         //CHECAR SI HAY DESBORDAMIENTO
                                     }
                                 }
-                                Archivo.EscribeHashEstaticoSubBloque(DD.Entidades[pos].HE[cajon].DirBloque, DD.Entidades[comboEntidadesRegistros.SelectedIndex].Atributos[i], DD.Entidades[pos].HE[cajon].Desbordamiento, DD.Entidades[pos].HE[cajon].Sub_Bloque, nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
+                                Archivo.EscribeHashEstaticoSubBloque(DD.Entidades[posE].HE[cajon].DirBloque, DD.Entidades[posE].Atributos[i], -1, DD.Entidades[posE].HE[cajon].Sub_Bloque, nomRegistro + @"\" + DD.Entidades[comboEntidadesRegistros.SelectedIndex].Nombre + ".idx");
                                 break;
                         }
                         break;
@@ -2904,21 +2905,6 @@ namespace ProyectoArchivos
                     dtGrid_Cajon.Rows.Add(hesb.Informacion, hesb.DirInformacion);
                 }
             }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Form formulario = new Primario(DD);
-
-        
-            formulario.Show();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Form formulario2 = new secundario();
-            formulario2.Show();
-
         }
     }
 }

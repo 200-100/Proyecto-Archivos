@@ -69,6 +69,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtB_NomAtributo = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.comboBusqueda = new System.Windows.Forms.ComboBox();
             this.txtB_Busqueda = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -91,6 +92,7 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.comboSub_BloqueFK = new System.Windows.Forms.ComboBox();
             this.comboAtributosFK = new System.Windows.Forms.ComboBox();
             this.comboFK = new System.Windows.Forms.ComboBox();
             this.dtGrid_Sub_BloquesFK = new System.Windows.Forms.DataGridView();
@@ -123,9 +125,6 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboSub_BloqueFK = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGrid_Entidades)).BeginInit();
             this.TabControl1.SuspendLayout();
@@ -514,7 +513,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button2);
             this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.comboBusqueda);
             this.tabPage3.Controls.Add(this.txtB_Busqueda);
@@ -535,6 +533,14 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Registros";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(453, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Visible = false;
             // 
             // comboBusqueda
             // 
@@ -740,6 +746,15 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Indice Secundario";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // comboSub_BloqueFK
+            // 
+            this.comboSub_BloqueFK.FormattingEnabled = true;
+            this.comboSub_BloqueFK.Location = new System.Drawing.Point(28, 213);
+            this.comboSub_BloqueFK.Name = "comboSub_BloqueFK";
+            this.comboSub_BloqueFK.Size = new System.Drawing.Size(158, 21);
+            this.comboSub_BloqueFK.TabIndex = 9;
+            this.comboSub_BloqueFK.SelectedIndexChanged += new System.EventHandler(this.comboSub_BloqueFK_SelectedIndexChanged);
             // 
             // comboAtributosFK
             // 
@@ -1019,35 +1034,6 @@
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
-            // comboSub_BloqueFK
-            // 
-            this.comboSub_BloqueFK.FormattingEnabled = true;
-            this.comboSub_BloqueFK.Location = new System.Drawing.Point(28, 213);
-            this.comboSub_BloqueFK.Name = "comboSub_BloqueFK";
-            this.comboSub_BloqueFK.Size = new System.Drawing.Size(158, 21);
-            this.comboSub_BloqueFK.TabIndex = 9;
-            this.comboSub_BloqueFK.SelectedIndexChanged += new System.EventHandler(this.comboSub_BloqueFK_SelectedIndexChanged);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(471, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(561, 29);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1187,7 +1173,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.ComboBox comboSub_BloqueFK;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }
 
